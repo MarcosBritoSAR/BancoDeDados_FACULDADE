@@ -1,0 +1,131 @@
+USE VendasBD
+
+--CRIANDO A TABELA
+
+CREATE PROCEDURE spOlamundo
+AS 
+BEGIN
+SELECT 'OLÀ MUNDO'
+END
+
+EXEC spOlamundo
+
+ALTER PROCEDURE spOlamundo
+AS 
+BEGIN 
+SELECT 'OLÁ MUNDO 2'
+END 
+
+EXEC spOlamundo
+
+DROP PROCEDURE spOlamundo
+
+EXEC spOlamundo
+
+
+
+-----------------------
+CREATE PROCEDURE spRetornoMsg (@MeuTexto varchar(100))
+AS
+BEGIN
+PRINT 'Texto informado: '+@MeuTexto
+END
+
+EXEC spRetornoMsg "Deu certo"
+---------------------------
+
+ALTER PROCEDURE spRetornoMsg (@MeuTexto varchar(100))
+AS
+BEGIN
+SELECT 'Texto informado: '+@MeuTexto [TEXTO APRESENTA]
+END
+
+
+EXEC spRetornoMsg "Deu certo"
+------------------------------------
+
+
+ALTER PROCEDURE spRetornoMsg (@MeuTexto varchar(100), @Valor int)
+AS
+BEGIN
+SELECT 'Texto informado: '+@MeuTexto + ' ' + cast(@valor as varchar) [textp]
+END
+
+EXEC spRetornoMsg 'idade: ', 20
+
+------------------------------
+
+ALTER PROCEDURE spExemploIf(@valor INT)
+AS 
+BEGIN 
+	IF(@valor > 0 )
+	BEGIN
+		PRINT 'O VALOR ' + CAST(@valor AS VARCHAR)+ N'é POSITIVO'
+	END
+    ELSE 
+	BEGIN
+		IF(@valor < 0)
+		BEGIN
+			PRINT'O VALOR ' + CAST(@valor AS VARCHAR)+ N'é NEGATIVO'
+		END 
+		ELSE
+		BEGIN 
+			PRINT 'O VALOR ' + CAST(@valor AS VARCHAR)+ N'é NULO'
+		END
+	END
+END
+
+EXEC spExemploIf 5
+
+
+
+
+CREATE PROCEDURE spBoasVindas (@nome VARCHAR(50))
+AS BEGIN 
+	PRINT 'SEJA BEM VNDO (A) '+' '+@nome
+	IF(DATEPART(hour, getdate())>8 AND DATEPART(hour,getdate())<=12)
+	BEGIN 
+		PRINT 'BOM DIA!'
+	END
+	ELSE
+	BEGIN
+		IF(DATEPART(hour, getdate())>12 AND DATEPART(hour,getdate())<=18)
+	    BEGIN 
+			PRINT 'BOA TARDE'
+		END
+		ELSE
+		BEGIN
+			PRINT 'BOA NOITE'
+		END 
+	END
+END
+
+EXEC spBoasVindas 'MARCOS'
+
+
+
+CREATE PROCEDURE spContador(@num INT)
+AS 
+BEGIN
+	DECLARE @I INT
+	SET @I = 0
+
+	WHILE(@I < @num)
+	BEGIN
+		PRINT @I
+		SET @I = @I + 1
+	END
+END
+
+EXEC spContador 10
+
+----------------
+CREATE PROCEDURE spTabuada(@tab INT)
+AS 
+BEGIN
+	DECLARE @CONT INT
+	SET @CONT = 0
+
+	WHILE (@CONT <= 10)
+	BEGIN 
+		PRINT CAST(@CONT AS VARCHAR) + N
